@@ -1,0 +1,8 @@
+command laravel
+
+php artisan serve = menghidupkan Laravel (port default :8000)
+php artisan serve --port=angkaport = menghidupkan laravel dengan port yang ditentukan
+php artisan make:test namaTest = membuat file testing
+php artisan make:test namaTest --unit   = membuat file testing (unit test)
+php artisan config:cache = membuat file cache config 
+php artisan config:clear = menghapus file cache config
