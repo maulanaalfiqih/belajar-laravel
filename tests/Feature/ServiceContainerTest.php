@@ -3,14 +3,17 @@
 namespace Tests\Feature;
 
 use App\Data\Foo;
+use App\Data\Bar;
 use App\Data\Person;
+use App\Services\HaloServiceIndonesia;
+use App\Services\HelloService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ServiceContainerTest extends TestCase
 {
-    public function testServiceContainer()
+    public function testDependency()
     {
         //function make(key) adalah function yang membuat objek baru, sama dengan new Foo()//
         $foo = $this->app->make(Foo::class);
@@ -74,5 +77,41 @@ class ServiceContainerTest extends TestCase
         self::assertEquals('Alfiqih', $person1->lastname);
         self::assertEquals('Alfiqih', $person2->lastname);
         self::assertSame($person1, $person2);
+    }
+
+    public function testDependencyInjection()
+    {
+        $this->app->singleton(Foo::class, function ($app) {
+            return new Foo();
+        });
+
+        /*dependency injection melalui closure agar laravel tidak membuat objek terus menerus.
+          ini dikarenakan objek Bar menggunakan dependency dari objek Foo melalui dependency injection pada closure($app)
+          dengan kata lain menggunakan parameter $app sebagai service container
+        */
+        $this->app->singleton(Bar::class, function ($app) {
+            $foo = $app->make(Foo::class);
+            return new Bar($foo);
+        });
+
+        $foo = $this->app->make(Foo::class);
+        $bar1 = $this->app->make(Bar::class);
+        $bar2 = $this->app->make(Bar::class);
+
+        self::assertSame($foo, $bar1->foo);
+        self::assertSame($bar1, $bar2);
+    }
+
+    public function testInterfaceToClass()
+    {
+        //$this->app->singleton(HelloService::class, HaloServiceIndonesia::class);
+
+        //cara closure untuk objek yang kompleks, misal ada penambahan parameter pada objeknya
+        $this->app->singleton(HelloService::class, function ($app) {
+            return new HaloServiceIndonesia();
+        });
+        $helloService  = $this->app->make(HelloService::class);
+
+        self::assertEquals('Halo Maulana', $helloService->hello('Maulana'));
     }
 }
