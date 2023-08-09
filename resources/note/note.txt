@@ -6,3 +6,4 @@ php artisan make:test namaTest = membuat file testing
 php artisan make:test namaTest --unit   = membuat file testing (unit test)
 php artisan config:cache = membuat file cache config 
 php artisan config:clear = menghapus file cache config
+php artisan make:provider namaprovide = membuat service provider
