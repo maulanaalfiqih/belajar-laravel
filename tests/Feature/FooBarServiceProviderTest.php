@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Data\Bar;
 use App\Data\Foo;
 use App\Services\HelloService;
+use App\Services\HaloServiceIndonesia;
 use Tests\TestCase;
 
 class FooBarServiceProviderTest extends TestCase
@@ -31,5 +32,11 @@ class FooBarServiceProviderTest extends TestCase
         $helloservice2 = $this->app->make(HelloService::class);
 
         self::assertSame($helloservice1, $helloservice2);
+        self::assertEquals('Halo Momo', $helloservice1->hello('Momo'));
+    }
+
+    public function testEmpty()
+    {
+        self::assertTrue(true);
     }
 }
