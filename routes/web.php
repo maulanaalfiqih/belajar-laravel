@@ -26,3 +26,13 @@ Route::redirect('/youtube', '/momo');
 Route::fallback(function () {
     return "404";
 });
+
+Route::view('/hello', 'hello', ['name' => 'momo']);
+
+Route::get('/hello-again', function () {
+    return view('hello', ['name' => 'ujang']);
+});
+
+Route::get('/hello-world', function () {
+    return view('hello.world', ['name' => 'ujang']);
+});
