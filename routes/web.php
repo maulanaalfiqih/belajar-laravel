@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/momo', function () {
+    return "Halo momo ganteng";
+});
+
+Route::redirect('/youtube', '/momo');
+
+Route::fallback(function () {
+    return "404";
+});
