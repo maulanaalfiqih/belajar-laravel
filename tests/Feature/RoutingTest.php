@@ -21,9 +21,45 @@ class RoutingTest extends TestCase
             ->assertRedirect('/momo');
     }
 
-    public function testFallback() 
+    public function testFallback()
     {
         $this->get('/notfound')
             ->assertSeeText('404');
+    }
+
+    public function testRouteParameter()
+    {
+        $this->get('/products/1')
+            ->assertSeeText("Product 1");
+
+        $this->get('/products/1/items/ABC')
+            ->assertSeeText("Product 1, Item ABC");
+    }
+
+    public function testRouteParameterRegex()
+    {
+        $this->get('/categories/69')
+            ->assertSeeText("Category 69");
+
+        $this->get('/categories/momo')
+            ->assertSeeText("404");
+    }
+
+    public function testRouteParameterOptional()
+    {
+        $this->get('/users/70')
+            ->assertSeeText("User 70");
+
+        $this->get('/users/')
+            ->assertSeeText("404");
+    }
+
+    public function testRouteConflict()
+    {
+        $this->get('/conflict/ujang')
+            ->assertSeeText("Conflict ujang");
+
+        $this->get('/conflict/momo')
+            ->assertSeeText("Conflict momo");
     }
 }

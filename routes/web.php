@@ -36,3 +36,27 @@ Route::get('/hello-again', function () {
 Route::get('/hello-world', function () {
     return view('hello.world', ['name' => 'ujang']);
 });
+
+Route::get('/products/{id}', function ($productId) {
+    return "Product $productId";
+});
+
+Route::get('/products/{product}/items/{items}', function ($productId, $itemId) {
+    return "Product $productId, Item $itemId";
+});
+
+Route::get('/categories/{id}', function ($categoryId) {
+    return "Category $categoryId";
+})->where('id', '[0-9]+');
+
+Route::get('/users/{id?}', function ($userId = '404') {
+    return "User $userId";
+});
+
+Route::get('/conflict/momo', function () {
+    return "Conflict momo";
+});
+
+Route::get('/conflict/{name}', function ($nameId) {
+    return "Conflict $nameId";
+});
