@@ -39,19 +39,19 @@ Route::get('/hello-world', function () {
 
 Route::get('/products/{id}', function ($productId) {
     return "Product $productId";
-});
+})->name('product.detail');
 
 Route::get('/products/{product}/items/{items}', function ($productId, $itemId) {
     return "Product $productId, Item $itemId";
-});
+})->name('product.item.detail');
 
 Route::get('/categories/{id}', function ($categoryId) {
     return "Category $categoryId";
-})->where('id', '[0-9]+');
+})->where('id', '[0-9]+')->name('category.detail');
 
 Route::get('/users/{id?}', function ($userId = '404') {
     return "User $userId";
-});
+})->name('user.detail');
 
 Route::get('/conflict/momo', function () {
     return "Conflict momo";
@@ -59,4 +59,13 @@ Route::get('/conflict/momo', function () {
 
 Route::get('/conflict/{name}', function ($nameId) {
     return "Conflict $nameId";
+});
+
+Route::get('/barang/{id}', function ($barangId) {
+    $link = route('product.detail', ['id' => $barangId]);
+    return "Link $link";
+});
+
+Route::get('/barang-redirect/{id}', function ($barangId) {
+    return redirect()->route('product.detail', ['id' => $barangId]);
 });
