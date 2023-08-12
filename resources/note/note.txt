@@ -1,5 +1,6 @@
 command laravel
 
+composer create-project laravel/laravel example-app = membuat project laravel
 php artisan serve = menghidupkan Laravel (port default :8000)
 php artisan serve --port=angkaport = menghidupkan laravel dengan port yang ditentukan
 php artisan make:test namaTest = membuat file testing
