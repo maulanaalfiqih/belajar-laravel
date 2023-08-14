@@ -42,4 +42,27 @@ class InputController extends Controller
             "birthDate" => $birthDate("Y-m-d")
         ]);
     }
+
+    public function filterOnly(Request $request): string
+    {
+        $name = $request->only('name.first', 'name.middle');
+        return json_encode($name);
+    }
+
+    public function filterExcept(Request $request): string
+    {
+        $user = $request->except('admin');
+        return json_encode($user);
+    }
+
+    public function filterMerge(Request $request): string
+    {
+
+        $request->merge([
+            'admin' => false
+        ]);
+
+        $user = $request->input();
+        return json_encode($user);
+    }
 }
