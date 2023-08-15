@@ -10,3 +10,4 @@ php artisan config:clear = menghapus file cache config
 php artisan make:provider namaprovide = membuat service provider
 php artisan view:cache = compile view blade template untuk optimasi view
 php artisan view:clear = menghapus hasil compile
+php artisan key:generate = membuat key untuk enkripsi, dilakukan secara berkala untuk keamanan aplikasi
