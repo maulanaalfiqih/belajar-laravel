@@ -108,3 +108,11 @@ Route::get('/redirect/name/{name}', [RedirectController::class, 'redirectHello']
     ->name('redirect-hello');
 Route::get('/redirect/action', [RedirectController::class, 'redirectAction']);
 Route::get('/redirect/away', [RedirectController::class, 'redirectAway']);
+
+Route::get('/middleware/api', function () {
+    return "OK";
+})->middleware(['contoh']);
+
+Route::get('/middleware/group', function () {
+    return "GROUP";
+})->middleware(['pzn']);
